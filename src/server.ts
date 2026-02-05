@@ -1,14 +1,24 @@
 import http, { Server } from "http";
 import app from "./app";
+import { envVariables } from "./app/config/env";
+import db from "./db/knex";
 
 
 
 
 
 let server: Server | null = null;
-const port=5000
 
-
+const port = envVariables.PORT;
+const connectToDB = async () => {
+  try {
+    await db.raw("SELECT 1").timeout(5000, { cancel: true });
+    console.log("✅ PostgreSQL Database Connected");
+  } catch (err) {
+    console.error("❌ Database Connection Failed", err);
+    process.exit(1);
+  }
+};
 const startServer = async () => {
   try {
     server = http.createServer(app);
@@ -63,5 +73,7 @@ function handleProcessEvents() {
 }
 
 (async () => {
+  
+  await connectToDB()
   await startServer();
 })();
