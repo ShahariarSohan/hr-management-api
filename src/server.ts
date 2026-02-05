@@ -3,10 +3,6 @@ import app from "./app";
 import { envVariables } from "./app/config/env";
 import db from "./db/knex";
 
-
-
-
-
 let server: Server | null = null;
 
 const port = envVariables.PORT;
