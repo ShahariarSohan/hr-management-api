@@ -30,10 +30,10 @@ const globalErrorHandler = (
   let message = err.message || "Something went wrong!";
   let error = err;
 
-  // 🔹 Knex / PostgreSQL errors
+
   if (err.code) {
     switch (err.code) {
-      case "23505": // unique_violation
+      case "23505": 
         statusCode = httpStatus.CONFLICT;
         message = "Duplicate key value violates unique constraint";
         error = {
@@ -42,7 +42,7 @@ const globalErrorHandler = (
         };
         break;
 
-      case "23503": // foreign_key_violation
+      case "23503": 
         statusCode = httpStatus.BAD_REQUEST;
         message = "Foreign key constraint violation";
         error = {
@@ -51,7 +51,7 @@ const globalErrorHandler = (
         };
         break;
 
-      case "23502": // not_null_violation
+      case "23502": 
         statusCode = httpStatus.BAD_REQUEST;
         message = "Missing required field";
         error = {
@@ -60,7 +60,7 @@ const globalErrorHandler = (
         };
         break;
 
-      case "22P02": // invalid_text_representation
+      case "22P02": 
         statusCode = httpStatus.BAD_REQUEST;
         message = "Invalid input syntax";
         error = err.detail;
@@ -68,7 +68,7 @@ const globalErrorHandler = (
     }
   }
 
-  // 🔹 Custom AppError
+
   if (err instanceof AppError) {
     statusCode = err.statusCode;
     message = err.message;

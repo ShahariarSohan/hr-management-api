@@ -10,11 +10,13 @@ import AppError from "../../errorHelpers/AppError";
 import { envVariables } from "../../../config/env";
 import db from "../../../db/knex";
 import { Role } from "../../types/userRole";
+import { Hr_User } from "../../types/dbTable";
 
 
 const loginUser = async (payload: { email: string; password: string }) => {
-  const userData = await db("hr_users").where({ email: payload.email }).first();
-  console.log(userData)
+  const userData = await db<Hr_User>("hr_users")
+    .where({ email: payload.email })
+    .first();
   if (!userData) {
     throw new AppError(httpStatus.NOT_FOUND, "Invalid user or email");
   }
