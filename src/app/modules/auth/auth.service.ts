@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+
 import httpStatus from "http-status-codes";
 import bcrypt from "bcrypt";
 

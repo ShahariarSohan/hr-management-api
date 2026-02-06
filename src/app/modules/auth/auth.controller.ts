@@ -1,5 +1,4 @@
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import httpStatus from 'http-status-codes';
 
 
@@ -48,7 +47,7 @@ const loginUser = catchAsync(async (req: Request, res: Response) => {
   });
 });
 const logoutUser = catchAsync(async (req: Request, res: Response) => {
-  // Clear cookies
+ 
   res.clearCookie("accessToken", {
     secure: true,
     httpOnly: true,

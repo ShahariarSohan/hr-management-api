@@ -5,7 +5,6 @@ import { employeeService } from "./employee.service";
 import httpStatus from "http-status-codes";
 import { Employee } from "../../types/dbTable";
 
-
 const createEmployee = catchAsync(async (req: Request, res: Response) => {
   const payload: Employee = {
     ...req.body,
@@ -31,7 +30,7 @@ const getAllEmployees = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getEmployeeById = catchAsync(async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
+  const id = Number(req.params.id);
   const employee = await employeeService.getEmployeeById(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -42,12 +41,11 @@ const getEmployeeById = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateEmployee = catchAsync(async (req: Request, res: Response) => {
-    console.log(req.body)
   const payload: Partial<Employee> = {
     ...req.body,
     ...(req.file && { photo_path: req.file.filename }),
-    };
-    const id=Number(req.params.id)
+  };
+  const id = Number(req.params.id);
   const employee = await employeeService.updateEmployee(id, payload);
   sendResponse(res, {
     statusCode: httpStatus.OK,
@@ -58,7 +56,7 @@ const updateEmployee = catchAsync(async (req: Request, res: Response) => {
 });
 
 const deleteEmployee = catchAsync(async (req: Request, res: Response) => {
-    const id = Number(req.params.id);
+  const id = Number(req.params.id);
   await employeeService.deleteEmployee(id);
   sendResponse(res, {
     statusCode: httpStatus.OK,
