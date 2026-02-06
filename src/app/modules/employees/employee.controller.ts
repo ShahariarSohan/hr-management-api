@@ -42,6 +42,7 @@ const getEmployeeById = catchAsync(async (req: Request, res: Response) => {
 });
 
 const updateEmployee = catchAsync(async (req: Request, res: Response) => {
+    console.log(req.body)
   const payload: Partial<Employee> = {
     ...req.body,
     ...(req.file && { photo_path: req.file.filename }),
