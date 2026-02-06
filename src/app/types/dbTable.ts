@@ -1,7 +1,7 @@
 // types/dbTables.ts
 
 export interface Hr_User {
-  id: number;
+  id?: number;
   email: string;
   password_hash: string;
   name: string;
@@ -10,7 +10,7 @@ export interface Hr_User {
 };
 
 export interface Employee {
-  id: number;
+  id?: number;
   name: string;
   age: number;
   designation: string;
@@ -23,7 +23,7 @@ export interface Employee {
 };
 
 export interface Attendance{
-  id: number;
+  id?: number;
   employee_id: number;
   date: string; // 'YYYY-MM-DD'
   check_in_time: string; // 'HH:MM:SS' or timestamp
