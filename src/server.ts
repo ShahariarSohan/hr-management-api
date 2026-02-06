@@ -1,6 +1,6 @@
 import http, { Server } from "http";
 import app from "./app";
-import { envVariables } from "./app/config/env";
+import { envVariables } from "./config/env";
 import db from "./db/knex";
 
 let server: Server | null = null;
@@ -69,6 +69,6 @@ function handleProcessEvents() {
 }
 
 (async () => {
-  await connectToDB()
+  await connectToDB();
   await startServer();
 })();

@@ -1,7 +1,7 @@
 import type { Knex } from "knex";
 
 import path from "path";
-import { envVariables } from "./app/config/env";
+import { envVariables } from "./config/env";
 
 const knexConfig: Record<string, Knex.Config> = {
   development: {
