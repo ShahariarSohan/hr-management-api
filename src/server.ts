@@ -69,7 +69,6 @@ function handleProcessEvents() {
 }
 
 (async () => {
-  
   await connectToDB()
   await startServer();
 })();

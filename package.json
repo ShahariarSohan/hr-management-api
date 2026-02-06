@@ -7,7 +7,13 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
     "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "db:migrate": "knex migrate:latest --knexfile src/knexfile.ts",
+    "db:rollback": "knex migrate:rollback --knexfile src/knexfile.ts",
+    "db:make": "knex migrate:make -x ts --knexfile src/knexfile.ts",
+    "db:seed:make": "knex seed:make -x ts --knexfile src/knexfile.ts",
+    "db:seed": "knex seed:run --knexfile src/knexfile.ts",
+    "db:status": "knex migrate:status --knexfile src/knexfile.ts"
   },
   "keywords": [],
   "author": "",
