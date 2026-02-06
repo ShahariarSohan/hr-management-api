@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Router } from "express";
+import { authRoutes } from "../modules/auth/auth.route";
 
 
 export const router = Router();
@@ -9,8 +10,8 @@ interface IModuleRoutes {
 }
 const moduleRoutes: IModuleRoutes[] = [
   {
-    path: "",
-    route: "",
+    path: "/auth",
+    route: authRoutes,
   },
  
 ];

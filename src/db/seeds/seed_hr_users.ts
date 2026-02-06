@@ -6,17 +6,17 @@ export async function seed(knex: Knex): Promise<void> {
   await knex("hr_users").del();
 
   const hashedPassword = await bcrypt.hash(
-    "admin123",
+    "hrAdmin123",
     Number(envVariables.BCRYPT_SALT_ROUND),
   );
 
   await knex("hr_users").insert([
     {
-      email: "admin@company.com",
+      email: "hrAdmin@company.com",
       password_hash: hashedPassword,
       name: "System Administrator",
     },
   ]);
 
-  console.log("✅ HR Admin seeded: admin@company.com / admin123");
+  console.log("✅ HR Admin seeded: hrAdmin@company.com / hrAdmin123");
 }

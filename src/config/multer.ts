@@ -1,28 +1,27 @@
 import multer from "multer";
 import path from "path";
 import fs from "fs";
+import { envVariables } from "./env";
 
-// Upload directory
-const uploadDir = path.join(process.cwd(), "src", "uploads");
 
-// Ensure folder exists
+const uploadDir = path.join(process.cwd(), "src", envVariables.UPLOAD_PATH);
+
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Multer storage config
+
 const storage = multer.diskStorage({
   destination: (_req, _file, cb) => {
     cb(null, uploadDir);
   },
   filename: (_req, file, cb) => {
-    // Save file with unique timestamp + original name
+ 
     const uniqueName = `${Date.now()}-${file.originalname}`;
     cb(null, uniqueName);
   },
 });
 
-// File filter example (images only)
 const fileFilter: multer.Options["fileFilter"] = (_req, file, cb) => {
  const allowedTypes = [
    "image/png",
@@ -39,7 +38,7 @@ const fileFilter: multer.Options["fileFilter"] = (_req, file, cb) => {
   }
 };
 
-// Max file size 5MB
+
 export const upload = multer({
   storage,
   fileFilter,
