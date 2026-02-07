@@ -46,10 +46,34 @@ const updateEmployee = async (id: number, payload: Partial<Employee>): Promise<E
 
     return employee;
 }
+
+
 const deleteEmployee = async (id: number): Promise<void> => {
-  const deleted = await db<Employee>("employees").where({ id }).del();
-  if (!deleted) throw new AppError(httpStatus.NOT_FOUND, "Employee not found");
+
+  const employee = await db<Employee>("employees").where({ id }).first();
+
+  if (!employee) {
+    throw new AppError(httpStatus.NOT_FOUND, "Employee not found");
+  }
+
+
+  await db<Employee>("employees").where({ id }).del();
+
+
+  if (employee.photo_path) {
+    const photoPath = path.join(
+      process.cwd(),
+      "src",
+      envVariables.UPLOAD_PATH,
+      employee.photo_path,
+    );
+
+    if (fs.existsSync(photoPath)) {
+      fs.unlinkSync(photoPath);
+    }
+  }
 };
+
 
 export const employeeService = {
   createEmployee,
