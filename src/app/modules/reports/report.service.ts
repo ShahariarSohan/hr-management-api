@@ -11,7 +11,7 @@ const getMonthlyAttendanceReport = async (
   month: string,
   employee_id?: number,
 ): Promise<MonthlyAttendanceReport[]> => {
-  // 1️⃣ Calculate month start and end
+ 
   const [year, mon] = month.split("-").map(Number);
   const startDate = new Date(year, mon - 1, 1);
   const endDate = new Date(year, mon, 0);
@@ -19,8 +19,8 @@ const getMonthlyAttendanceReport = async (
   const startDateStr = startDate.toISOString().slice(0, 10);
   const endDateStr = endDate.toISOString().slice(0, 10);
 
-  // 2️⃣ Execute SQL
-  const result = await db.raw<MonthlyAttendanceReport[]>(
+
+  const result = await db.raw<{rows:MonthlyAttendanceReport[]}>(
     `
     SELECT
       e.id AS employee_id,
@@ -29,7 +29,7 @@ const getMonthlyAttendanceReport = async (
       COALESCE(
         SUM(
           CASE
-            WHEN a.check_in_time::time > '09:45:00' THEN 1
+            WHEN a.check_in_time> '09:45:00' THEN 1
             ELSE 0
           END
         ), 0
@@ -50,7 +50,7 @@ const getMonthlyAttendanceReport = async (
     },
   );
 
-  // 3️⃣ Return array matching interface
+
   return result.rows;
 };
 
