@@ -37,7 +37,7 @@ const getAllAttendance = async (
   filters: AttendanceFilters,
 ): Promise<Attendance[]> => {
   const query = db<Attendance>("attendance");
-//this is
+
   if (filters.employee_id) {
     query.where("employee_id", filters.employee_id);
   }
