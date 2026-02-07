@@ -1,19 +1,16 @@
-
-import fs from 'fs';
+import fs from "fs";
 import db from "../../../db/knex";
 import { Employee } from "../../types/dbTable";
 import AppError from "../../errorHelpers/AppError";
 import httpStatus from "http-status-codes";
 import { envVariables } from "../../../config/env";
-import path from 'path';
-
-
+import path from "path";
 
 const createEmployee = async (payload: Employee): Promise<Employee> => {
   const [employee] = await db<Employee>("employees")
     .insert(payload)
     .returning("*");
-    return employee;
+  return employee;
 };
 
 const getAllEmployees = async (): Promise<Employee[]> => {
@@ -26,40 +23,40 @@ const getEmployeeById = async (id: number): Promise<Employee> => {
   return employee;
 };
 
-const updateEmployee = async (id: number, payload: Partial<Employee>): Promise<Employee> => {
-  
-    const currentEmployee = await db<Employee>("employees").where({ id }).first();
-    if (!currentEmployee) throw new AppError(httpStatus.NOT_FOUND, "Employee not found");
+const updateEmployee = async (
+  id: number,
+  payload: Partial<Employee>,
+): Promise<Employee> => {
+  const currentEmployee = await db<Employee>("employees").where({ id }).first();
+  if (!currentEmployee)
+    throw new AppError(httpStatus.NOT_FOUND, "Employee not found");
 
-
-    if (payload.photo_path && currentEmployee.photo_path) {
-        const oldPhotoPath = path.join(process.cwd(), "src", envVariables.UPLOAD_PATH, currentEmployee.photo_path);
-        if (fs.existsSync(oldPhotoPath)) {
-            fs.unlinkSync(oldPhotoPath);
-        }
+  if (payload.photo_path && currentEmployee.photo_path) {
+    const oldPhotoPath = path.join(
+      process.cwd(),
+      "src",
+      envVariables.UPLOAD_PATH,
+      currentEmployee.photo_path,
+    );
+    if (fs.existsSync(oldPhotoPath)) {
+      fs.unlinkSync(oldPhotoPath);
     }
+  }
 
-    const [employee] = await db<Employee>("employees")
-        .where({ id })
-        .update({ ...payload, updated_at: new Date() })
-        .returning("*");
+  const [employee] = await db<Employee>("employees")
+    .where({ id })
+    .update({ ...payload, updated_at: new Date() })
+    .returning("*");
 
-    return employee;
-}
-
+  return employee;
+};
 
 const deleteEmployee = async (id: number): Promise<void> => {
-
   const employee = await db<Employee>("employees").where({ id }).first();
-
   if (!employee) {
     throw new AppError(httpStatus.NOT_FOUND, "Employee not found");
   }
-
-
   await db<Employee>("employees").where({ id }).del();
-
-
   if (employee.photo_path) {
     const photoPath = path.join(
       process.cwd(),
@@ -73,7 +70,6 @@ const deleteEmployee = async (id: number): Promise<void> => {
     }
   }
 };
-
 
 export const employeeService = {
   createEmployee,

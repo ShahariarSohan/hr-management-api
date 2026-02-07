@@ -2,6 +2,7 @@
 import { Router } from "express";
 import { authRoutes } from "../modules/auth/auth.route";
 import { employeeRoutes } from "../modules/employees/employee.route";
+import { attendanceRoutes } from "../modules/attendance/attendance.route";
 
 
 export const router = Router();
@@ -17,6 +18,10 @@ const moduleRoutes: IModuleRoutes[] = [
   {
     path: "/employees",
     route: employeeRoutes,
+  },
+  {
+    path: "/attendances",
+    route: attendanceRoutes,
   },
  
 ];
