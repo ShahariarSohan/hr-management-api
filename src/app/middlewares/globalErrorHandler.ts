@@ -3,6 +3,7 @@
 
 import { NextFunction, Request, Response } from "express";
 import httpStatus from "http-status-codes";
+import { ZodError } from "zod";
 import AppError from "../errorHelpers/AppError";
 import { envVariables } from "../../config/env";
 
@@ -25,39 +26,46 @@ const globalErrorHandler = (
 ) => {
   console.error("🔥 Global Error:", err);
 
+
+  if (err instanceof ZodError) {
+    const formattedErrors = err.issues.map((e) => ({
+      field: e.path.join("."),
+      message: e.message,
+      code: e.code,
+    }));
+
+    return res.status(httpStatus.BAD_REQUEST).json({
+      success: false,
+      message: "Validation failed",
+      errors: formattedErrors,
+    });
+  }
+
+
   let statusCode = httpStatus.INTERNAL_SERVER_ERROR;
   const success = false;
   let message = err.message || "Something went wrong!";
   let error = err;
 
-
+  // 3️⃣ Handle PostgreSQL errors
   if (err.code) {
     switch (err.code) {
       case "23505": 
         statusCode = httpStatus.CONFLICT;
         message = "Duplicate key value violates unique constraint";
-        error = {
-          constraint: err.constraint,
-          detail: err.detail,
-        };
+        error = { constraint: err.constraint, detail: err.detail };
         break;
 
       case "23503": 
         statusCode = httpStatus.BAD_REQUEST;
         message = "Foreign key constraint violation";
-        error = {
-          constraint: err.constraint,
-          detail: err.detail,
-        };
+        error = { constraint: err.constraint, detail: err.detail };
         break;
 
-      case "23502": 
+      case "23502":
         statusCode = httpStatus.BAD_REQUEST;
         message = "Missing required field";
-        error = {
-          column: err.column,
-          table: err.table,
-        };
+        error = { column: err.column, table: err.table };
         break;
 
       case "22P02": 
@@ -68,15 +76,17 @@ const globalErrorHandler = (
     }
   }
 
-
+ 
   if (err instanceof AppError) {
     statusCode = err.statusCode;
     message = err.message;
     error = err;
   }
 
+
   const sanitizedError = sanitizeError(error);
 
+ 
   res.status(statusCode).json({
     success,
     message,
