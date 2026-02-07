@@ -20,7 +20,10 @@ const createEmployee = catchAsync(async (req: Request, res: Response) => {
 });
 
 const getAllEmployees = catchAsync(async (req: Request, res: Response) => {
-  const employees = await employeeService.getAllEmployees();
+  const { search } = req.query as { search?: string };
+
+  const employees = await employeeService.getAllEmployees({ search });
+
   sendResponse(res, {
     statusCode: httpStatus.OK,
     success: true,

@@ -6,6 +6,9 @@ import httpStatus from "http-status-codes";
 import { envVariables } from "../../../config/env";
 import path from "path";
 
+interface GetAllEmployeesOptions {
+  search?: string;
+}
 const createEmployee = async (payload: Employee): Promise<Employee> => {
   const [employee] = await db<Employee>("employees")
     .insert(payload)
@@ -13,8 +16,18 @@ const createEmployee = async (payload: Employee): Promise<Employee> => {
   return employee;
 };
 
-const getAllEmployees = async (): Promise<Employee[]> => {
-  return await db<Employee>("employees").select("*");
+const getAllEmployees = async (
+  options?: GetAllEmployeesOptions,
+): Promise<Employee[]> => {
+  const query = db<Employee>("employees").select("*");
+
+  if (options?.search) {
+    query.whereILike("name", `%${options.search}%`);
+  }
+
+  query.orderBy("name", "asc");
+
+  return await query;
 };
 
 const getEmployeeById = async (id: number): Promise<Employee> => {
