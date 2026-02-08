@@ -110,37 +110,12 @@ UPLOAD_PATH=uploads/
 > ⚠️ `.env` is **gitignored**. Only `.env.example` is committed.
 
 ---
-
 ## 🗄 Database Setup
-
-### 4️⃣ Run Migrations
-
-```bash
-npm run db:migrate
-```
-
-### 5️⃣ Run Seeds (Optional)
-
-```bash
-npm run db:seed
-```
-
-### Knex Commands Reference
-
-```bash
-npm run db:migrate        # Run all migrations
-npm run db:rollback       # Rollback last batch
-npm run db:make name      # Create a new migration
-npm run db:seed:make name # Create seed file
-npm run db:seed           # Run seeds
-npm run db:status         # Migration status
-```
-
 ---
 
 ## 📐 Database knex migration Schema
 
-### I have already  added all migrations knex schema file in my git repo you don't have to manually create it you only have to  but if you want to create it manually you can use this migration schemas.
+### I have already  added all migrations knex schema file in my git repo you don't have to manually create it you only have to run command but if you want to create it manually you can use this migration schemas.
 
 ### 🧑‍💼 hr_users
 
@@ -217,6 +192,30 @@ export async function down(knex: Knex): Promise<void> {
 ```
 
 ---
+
+### 4️⃣ Run Migrations
+
+```bash
+npm run db:migrate
+```
+
+### 5️⃣ Run Seeds (Optional)
+
+```bash
+npm run db:seed
+```
+
+### Knex Commands Reference
+
+```bash
+npm run db:migrate        # Run all migrations
+npm run db:rollback       # Rollback last batch
+npm run db:make name      # Create a new migration
+npm run db:seed:make name # Create seed file
+npm run db:seed           # Run seeds
+npm run db:status         # Migration status
+```
+
 
 ## 🔐 Authentication
 
