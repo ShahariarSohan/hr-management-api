@@ -321,6 +321,8 @@ npm run dev
 ```
 
 ---
+## I have added a Json file for locally testing in postman 
+- [Import it by downloading or copying it](./HR_Management_Api.postman_collection.json)
 
 ## 🧪 Code Quality
 
