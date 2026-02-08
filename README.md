@@ -215,13 +215,25 @@ npm run db:status         # Migration status
 
 ## 🔐 Authentication
 
+## Test Credentials
+```
+Email: hrAdmin1@company.com
+
+Password: hrAdmin1
+
+Email: hrAdmin2@company.com
+
+Password: hrAdmin1
+
+```
+
 ### POST `/auth/login`
 
 **Request Body**
 ```json
 {
-  "email": "hr@example.com",
-  "password": "password123"
+  "email": "hrAdmin1@company.com", 
+  "password": "hrAdmin1"
 }
 ```
 
