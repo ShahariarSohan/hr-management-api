@@ -47,7 +47,6 @@ const globalErrorHandler = (
   let message = err.message || "Something went wrong!";
   let error = err;
 
-  // 3️⃣ Handle PostgreSQL errors
   if (err.code) {
     switch (err.code) {
       case "23505": 
