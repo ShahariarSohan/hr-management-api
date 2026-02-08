@@ -107,11 +107,7 @@ REFRESH_TOKEN_EXPIRES_IN=1M
 UPLOAD_PATH=uploads/
 ```
 
-> ⚠️ `.env` is **gitignored**. Only `.env.example` is committed.
-
----
 ## 🗄 Database Setup
----
 
 ## 📐 Database knex migration Schema
 
@@ -330,19 +326,6 @@ npm run dev
 - Strict TypeScript typing
 - Centralized error handling
 
----
-
-## 📦 Deliverables Checklist
-
-- ✅ REST API with authentication
-- ✅ Knex migrations & seeds
-- ✅ PostgreSQL relational design
-- ✅ JWT-protected routes
-- ✅ Attendance monthly report
-- ✅ README with full setup guide
-- ✅ `.env.example`
-
----
 
 ## 👨‍💻 Author
 
