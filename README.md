@@ -166,7 +166,7 @@ export async function down(knex: Knex): Promise<void> {
 ### 👨‍👩‍👧 employees
 
 ```ts
-id (PK)
+
 import { Knex } from "knex";
 
 export async function up(knex: Knex): Promise<void> {
