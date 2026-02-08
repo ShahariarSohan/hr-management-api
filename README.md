@@ -233,11 +233,12 @@ export async function down(knex: Knex): Promise<void> {
 **Response**
 ```json
 {
-  "accessToken": "jwt-token"
+  "accessToken": "jwt-token",
+  "refreshToken":"jwt-token"
 }
 ```
 
-> All `/employees`, `/attendance`, `/reports` routes are protected via **Bearer Token**.
+> All `/employees`, `/attendance`, `/reports` routes are protected via **Cookies**.
 
 ---
 
@@ -319,13 +320,6 @@ check_in_time > 09:45:00
 npm run dev
 ```
 
-### Production
-
-```bash
-npm run build
-npm start
-```
-
 ---
 
 ## 🧪 Code Quality
@@ -352,7 +346,7 @@ npm start
 ## 👨‍💻 Author
 
 **Shahariar Sohan**  
-Backend Developer — MERN + PostgreSQL + Prisma mindset
+Backend Developer — MERN + PostgreSQL + SQL
 
 ---
 
