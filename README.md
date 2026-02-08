@@ -115,7 +115,7 @@ UPLOAD_PATH=uploads/
 
 ## 📐 Database knex migration Schema
 
-### I have already  added all migrations knex schema file in my git repo you don't have to manually create it you only have to run command but if you want to create it manually you can use this migration schemas.
+ I have already  added all migrations knex schema file in my git repo you don't have to manually create it you only have to run command but if you want to create it manually you can use this migration schemas.
 
 ### 🧑‍💼 hr_users
 
